@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+#btn-mi {
+    background-color: blue;
+}
+.btn{
+    background-color: red;
+}
+button{
+    background-color: green;
+}
+#onBlub{
+    display: none;
+}
+</style>
+<button class="btn" id="btn-mi" ondblclick="showText()"> click me"</button>
+<button class="btn" id="btn-mi2" onclick="removeText()"> Clear</button>
+
+<P id="p-tag"> Hello world...</P>
+
+<img src="java-img/e0fd25f9127a9a109a0648c83ee61643.jpg" alt="" 
+height="200" id="onBlub">
+
+<img src="java-img/images.jfif" alt="" 
+
+height="200" id="offBlub">
+
+<img src="java-img/e0fd25f9127a9a109a0648c83ee61643.jpg" alt="" height="200" id="bulb2">
+
+<div>
+    <button onclick="onTheBlub()"> On  </button>
+    <button onclick="OffTheBlub()"> Off </button>
+</div>
+
+<hr>
+
+
+
+
+<button onclick="onTheBulb">ON</button>
+<button onclick="offTheBulb">OFF</button>
+
+<script >
+
+var ptag = document.getElementById("p-tag");
+console.log(ptag.innerHTML);
+console.log(ptag.innerText);
+
+var onBulb = document.getElementById('onBlub');
+var offBulb = document.getElementById('offBlub');
+
+
+function showText(){
+    ptag.innerHTML = "Hello world... I am changed";
+    ptag.style.backgroundColor = "orange";
+}
+
+function removeText(){
+    ptag.innerHTML = "";
+}
+
+function onTheBulb() {
+    onBulb.style.display = "block";
+    offBulb.style.display = "none";
+}
+
+function offTheBulb() {
+    onBulb.style.display = "none";
+    offBulb.style.display = "block";
+}
+
+var blub2 = document.getElementById('bulb2')
+var on_src = "java-img/e0fd25f9127a9a109a0648c83ee61643.jpg"
+var off_src = "java-img/images.jfif"
+
+
+function onTheBlub (){
+    bulb2.src = on_src
+}
+
+function offTheBlub(){
+    bulb2.src= off_src
+}
+</script> 
+
+<script></script>
+</body>
+</html>

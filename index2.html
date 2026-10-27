@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Helloo</p>
+    <input type="text" name="" id="myinput" placeholder="Username">
+<button onclick="submitBtn()">Submit</button>
+<p><b>Welcome</b> <b id="myscreen"></b> </p> 
+
+<br><br>
+
+<hr>
+<input type="number" placeholder="value1" id="value1">
+<input type="number" placeholder="value2" id="value2">
+<button onclick="addnumber()">add</button>
+<button onclick="subtractnumber()">subtract</button>
+<button onclick="modulus()">modulus</button>
+<p>Result: <b id="myscreen2">0</b></p>
+
+
+    <script>
+//calculator
+
+var value1 = document.getElementById("value1")
+var value2 = document.getElementById("value2")
+var myscreen2 = document.getElementById("myscreen2")
+
+
+function addnumber(){
+    var res = parseInt(value1.value) + parseInt (value2.value)
+    myscreen2.innerHTML = res 
+}
+function subtractnumber(){
+    var res = parseInt(value1.value) - parseInt (value2.value)
+    myscreen2.innerHTML = res 
+}
+
+function modulus(){
+    var res = parseInt(value1.value) % parseInt (value2.value)
+    myscreen2.innerHTML = res 
+}
+
+value1
+
+
+
+var myinput = document.getElementById("myinput")
+var myscreen = document.getElementById("myscreen")
+
+function submitBtn(){
+    console.log("Welcome" ,myinput.value)
+   myscreen.innerHTML = myinput.value
+}
+
+    </script>
+</body>
+</html>

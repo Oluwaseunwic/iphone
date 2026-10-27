@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Calculator</title>
+
+    <style>
+        body {
+            background-color: #e5e5e5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #000;
+            width: 350px;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px #888;
+        }
+
+        .screen {
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            overflow: hidden;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #textScreen2 {
+            color: #999;
+            font-size: 20px;
+            min-height: 28px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        #textScreen {
+            color: white;
+            font-size: 55px;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 50%;
+            background-color: #333333;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        button:active {
+            opacity: 0.6;
+        }
+
+        .function {
+            background-color: #a5a5a5;
+            color: black;
+        }
+
+        .operator {
+            background-color: #ff9f0a;
+            color: white;
+        }
+
+        .zero {
+            grid-column: span 1;
+            aspect-ratio: auto;
+            border-radius: 50px;
+            text-align: left;
+            padding-left: 28px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+
+        <div class="screen">
+            <div id="textScreen2"></div>
+            <div id="textScreen">0</div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="deleteChar()">DEL</button>
+            <button class="function" onclick="clearAll()">AC</button>
+            <button class="function" onclick="toggleSign()">+/-</button>
+            <button class="function" onclick="percent()">%</button>
+            <button class="operator" onclick="displayChar('÷')">÷</button>
+
+            <button onclick="displayChar('7')">7</button>
+            <button onclick="displayChar('8')">8</button>
+            <button onclick="displayChar('9')">9</button>
+            <button class="operator" onclick="displayChar('×')">×</button>
+
+            <button onclick="displayChar('4')">4</button>
+            <button onclick="displayChar('5')">5</button>
+            <button onclick="displayChar('6')">6</button>
+            <button class="operator" onclick="displayChar('-')">−</button>
+
+            <button onclick="displayChar('1')">1</button>
+            <button onclick="displayChar('2')">2</button>
+            <button onclick="displayChar('3')">3</button>
+            <button class="operator" onclick="displayChar('+')">+</button>
+
+            <button class="zero" onclick="displayChar('0')">0</button>
+            <button onclick="displayChar('.')">.</button>
+            <button class="operator" onclick="calculate()">=</button>
+
+        
+
+        </div>
+    </div>
+
+    <script>
+
+        let answerShown = false;
+
+        function displayChar(char) {
+
+            if (answerShown) {
+                if ("0123456789.".includes(char)) {
+                    textScreen.innerHTML = "0";
+                    textScreen2.innerHTML = "";
+                }
+                answerShown = false;
+            }
+
+            if (textScreen.innerHTML == "Error") {
+                textScreen.innerHTML = "0";
+            }
+
+            if (textScreen.innerHTML == "0") {
+                if ("0123456789.".includes(char)) {
+                    textScreen.innerHTML = char;
+                } else {
+                    textScreen.innerHTML += char;
+                }
+            } else {
+                textScreen.innerHTML += char;
+            }
+        }
+
+        function calculate() {
+
+            try {
+                let expression = textScreen.innerHTML
+                    .replace(/×/g, "*")
+                    .replace(/÷/g, "/");
+
+                let res = eval(expression);
+
+                if (!Number.isFinite(res)) {
+                    textScreen.innerHTML = "Error";
+                } else {
+                    textScreen2.innerHTML = textScreen.innerHTML + " =";
+                    textScreen.innerHTML = String(
+                        Number(res.toPrecision(10))
+                    );
+                }
+
+                answerShown = true;
+
+            } catch (error) {
+                textScreen.innerHTML = "Error";
+                answerShown = true;
+            }
+        }
+
+        function clearAll() {
+            textScreen.innerHTML = "0";
+            textScreen2.innerHTML = "";
+            answerShown = false;
+        }
+
+        function deleteChar() {
+
+            if (answerShown) {
+                clearAll();
+            } else if (textScreen.innerHTML.length == 1) {
+                clearAll();
+            } else {
+                textScreen.innerHTML =
+                    textScreen.innerHTML.slice(0, -1);
+            }
+        }
+
+        function toggleSign() {
+
+            if (textScreen.innerHTML != "0" &&
+                textScreen.innerHTML != "Error") {
+
+                if (textScreen.innerHTML.startsWith("-")) {
+                    textScreen.innerHTML =
+                        textScreen.innerHTML.slice(1);
+                } else {
+                    textScreen.innerHTML =
+                        "-" + textScreen.innerHTML;
+                }
+            }
+        }
+
+        function percent() {
+
+            try {
+                let res = eval(
+                    textScreen.innerHTML
+                        .replace(/×/g, "*")
+                        .replace(/÷/g, "/")
+                );
+
+                textScreen2.innerHTML =
+                    textScreen.innerHTML + "%";
+
+                textScreen.innerHTML = String(res / 100);
+                answerShown = true;
+
+            } catch (error) {
+                textScreen.innerHTML = "Error";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
+
+
+
+</body>
+</html>
